@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Show Recommendations</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+    <link rel=stylesheet type=text/css href='{{ url_for('static',filename='style_base.css')}}'>
+<div class=page>
+    <h1>Recommendations for user {{ session['n_user'] }}</h1>
+
+    <div class="metanav">
+
+        {% for name, recommender in results.items() %}
+            <table class="table table-striped">
+
+                <thead>
+                 <header>{{ name }}</header>
+                    <tr>
+                        <th>Item</th>
+                        <th>Rating</th>
+                    </tr>
+                 </thead>
+                 <tbody>
+                    {% for rank, item in enumerate(recommender['items']) %}
+                    <tr>
+                        <td class="filterable-cell">{{ item }} </td>
+                        <td class="filterable-cell"> {{ recommender['ratings'][rank] |round(1, 'common')  }} </td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        {% endfor %}
+
+    </div>
+</div>
+</body>
+</html>
