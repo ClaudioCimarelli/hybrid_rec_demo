@@ -20,27 +20,28 @@
 <link rel=stylesheet type=text/css href='{{ url_for('static',filename='style_base.css') }}'>
 <div id="outer">
     <div class=page>
-        <h1>Recommendations for user {{ session['n_user'] }}</h1>
-        <div class="metanav">
+        <h1 class="page_title">Recommendations for user {{ session['n_user'] }}</h1>
+        <div class="metanav container">
+        <div class = "row">
             {% for name, recommender in results.items() %}
-                <div class="container">
+                <div class="container col-xs-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <table class="table table-fixed ">
-                                <h5>{{ name }}</h5>
+                            <table class="table table-fixed data_table">
+                                <h4 style="text-align: left">{{ name }}</h4>
                                 <thead>
-                                <tr class="row">
-                                    <th class="col-xs-2">Rank</th>
-                                    <th class="col-xs-2">Item</th>
-                                    <th class="col-xs-2">Rating</th>
+                                <tr class="">
+                                    <th class="col-md-4" style="text-align: center">Rank</th>
+                                    <th class="col-md-4" style="text-align: center">Item</th>
+                                    <th class="col-md-4" style="text-align: center">Rating</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody >
                                 {% for rank, item in enumerate(recommender['items']) %}
-                                    <tr class="row">
-                                        <td class="col-xs-2"><b>{{ rank }}</b></td>
-                                        <td class="col-xs-2">{{ item }} </td>
-                                        <td class="col-xs-2"> {{ recommender['ratings'][rank] |round(1, 'common') }} </td>
+                                    <tr class="">
+                                        <td class="col-md-4" style="text-align: center"><b>{{ rank + 1 }}</b></td>
+                                        <td class="col-md-4" style="text-align: center">{{ item }} </td>
+                                        <td class="col-md-4" style="text-align: center"> {{ recommender['ratings'][rank] |round(1, 'common') }} </td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
@@ -49,7 +50,7 @@
                         </div>
                     </div>
                 </div>
-            {% endfor %}
+            {% endfor %}</div>
         </div>
     </div>
 </div>

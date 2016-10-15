@@ -3,6 +3,7 @@ from recommender_system.create_clusters import build_clusters
 from recommender_system.util import load_data, expert_base
 from recommender_system.batch_MF import train
 from recommender_system.user_rec import user_rec
+import numpy as np
 
 app = Flask(__name__)
 app.secret_key = '\xd5\\x\xf6h6\xe1\x1f\xf3\xb9\x91\xa7\x93\x1a\xcd\xe9\xc4\\\xbd7\xea\xf32\x13'
@@ -35,8 +36,11 @@ def show_recommendation():
     n_cluster = int(session['n_cluster'])
     session['n_user'] = int(clusters_index[n_cluster][n_user])
     results = user_rec(n_user, clusters[n_cluster], v_batch, bias)
+    items_rated = np.nonzero(clusters[n_cluster][n_user, :])[0]
+    ratings = clusters[n_cluster][n_user, items_rated]
+    user_ratings = {'items' : items_rated, 'ratings' : ratings }
 
-    return render_template("show_rec.html", results = results)
+    return render_template("show_rec.html", results = results, user_ratings= user_ratings)
 
 
 @app.context_processor
