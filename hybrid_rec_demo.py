@@ -32,9 +32,8 @@ def choose_users():
 @app.route('/show_rec', methods=['POST'])
 def show_recommendation():
     n_user = int(request.form["n_user"])
-    session['n_user'] = n_user
     n_cluster = int(session['n_cluster'])
-
+    session['n_user'] = int(clusters_index[n_cluster][n_user])
     results = user_rec(n_user, clusters[n_cluster], v_batch, bias)
 
     return render_template("show_rec.html", results = results)

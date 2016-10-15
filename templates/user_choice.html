@@ -6,15 +6,16 @@
     <link rel=stylesheet type=text/css href='{{ url_for('static',filename='style_base.css')}}'>
 </head>
 <body>
+<div id = "outer">
 <div class=page>
     <h1>Select a user of cluster {{ session['n_cluster'] }}</h1>
 
-    <div class=metanav>
+    <div class="metanav form">
         <h4>
             <form id='select_cluster' method='post' action='show_rec'>
                 <select name="n_user">
-                    {% for user in users %}
-                        <option value="{{ user }}">{{user }}</option>
+                    {% for user_num, user in enumerate(users) %}
+                        <option value="{{ user_num }}">{{ user }}</option>
                     {% endfor %}
                 </select>
                 <p>
@@ -23,6 +24,7 @@
             </form>
         </h4>
     </div>
+</div>
 </div>
 </body>
 </html>

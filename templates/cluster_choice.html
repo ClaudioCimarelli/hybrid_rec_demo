@@ -6,10 +6,11 @@
     <link rel=stylesheet type=text/css href='{{ url_for('static',filename='style_base.css')}}'>
 </head>
 <body>
+<div id = "outer">
 <div class=page>
     <h1>Select a cluster number</h1>
 
-    <div class=metanav>
+    <div class="metanav form">
         <h4>
             <form id='select_cluster' method='post' action='choose_user'>
                 <select name="n_cluster">
@@ -23,6 +24,7 @@
             </form>
         </h4>
     </div>
+</div>
 </div>
 </body>
 </html>

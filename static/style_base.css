@@ -20,19 +20,24 @@ h2 {
     font-size: 1.2em;
 }
 
+#outer {
+    width: 100%;
+    text-align: center;
+}
+
 .page {
     margin: 2em auto;
-    display: inline-block;
     border: 5px solid #ccc;
     background: white;
+    display: inline-block;
 }
 
 .metanav {
-    text-align: right;
     font-size: 0.8em;
     padding: 0.3em;
     margin-bottom: 1em;
     background: #fafafa;
+    text-align: right;
 }
 
 .flash {
@@ -46,43 +51,27 @@ h2 {
     padding: 0.5em;
 }
 
-.nav {
-    height: 200px;
-    width: 90%;
-    overflow-y: scroll;
+.scrollable_table {
+    text-align: left;
+    font-size: 1.5em;
 }
 
-table {
-    width: 50%;
+.table-fixed thead {
+    width: 97%;
 }
 
-thead, tbody, tr, td, th {
+.table-fixed tbody {
+    height: 230px;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
     display: block;
 }
 
-tr:after {
-    content: ' ';
-    display: block;
-    visibility: hidden;
-    clear: both;
-}
-
-thead th {
-    height: 30px;
-
-    text-align: right;
-}
-
-tbody {
-    height: 120px;
-    overflow-y: scroll;
-}
-
-thead {
-    /* fallback */
-}
-
-tbody td, thead th {
-    width: 19.2%;
+.table-fixed tbody td, .table-fixed thead > tr > th {
     float: left;
+    border-bottom-width: 0;
 }
+

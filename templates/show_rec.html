@@ -13,38 +13,44 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
 </head>
 <body>
-    <link rel=stylesheet type=text/css href='{{ url_for('static',filename='style_base.css')}}'>
-<div class=page>
-    <h1>Recommendations for user {{ session['n_user'] }}</h1>
+<link rel=stylesheet type=text/css href='{{ url_for('static',filename='style_base.css') }}'>
+<div id="outer">
+    <div class=page>
+        <h1>Recommendations for user {{ session['n_user'] }}</h1>
+        <div class="metanav">
+            {% for name, recommender in results.items() %}
+                <div class="container">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <table class="table table-fixed ">
+                                <h5>{{ name }}</h5>
+                                <thead>
+                                <tr class="row">
+                                    <th class="col-xs-2">Rank</th>
+                                    <th class="col-xs-2">Item</th>
+                                    <th class="col-xs-2">Rating</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for rank, item in enumerate(recommender['items']) %}
+                                    <tr class="row">
+                                        <td class="col-xs-2"><b>{{ rank }}</b></td>
+                                        <td class="col-xs-2">{{ item }} </td>
+                                        <td class="col-xs-2"> {{ recommender['ratings'][rank] |round(1, 'common') }} </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
 
-    <div class="metanav">
-
-        {% for name, recommender in results.items() %}
-            <table class="table table-striped">
-
-                <thead>
-                 <header>{{ name }}</header>
-                    <tr>
-                        <th>Item</th>
-                        <th>Rating</th>
-                    </tr>
-                 </thead>
-                 <tbody>
-                    {% for rank, item in enumerate(recommender['items']) %}
-                    <tr>
-                        <td class="filterable-cell">{{ item }} </td>
-                        <td class="filterable-cell"> {{ recommender['ratings'][rank] |round(1, 'common')  }} </td>
-
-                    </tr>
-                    {% endfor %}
-                </tbody>
-
-            </table>
-        {% endfor %}
-
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
 </body>
