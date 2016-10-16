@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, session
 from recommender_system.create_clusters import build_clusters
-from recommender_system.util import load_data, expert_base
+from recommender_system.util import expert_base
+from recommender_system.load_data import load_data
 from recommender_system.batch_MF import train
 from recommender_system.user_rec import user_rec
 import numpy as np
