@@ -1,5 +1,6 @@
-from util import *
-
+from util import non_zero_matrix
+import numpy as np
+import os
 
 def matrix_factorization(ratings, u, v, bias, epochs=200, alpha0=0.023, beta=0.045, suffix_name='batch'):
 
