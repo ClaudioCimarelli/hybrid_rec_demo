@@ -26,14 +26,14 @@ def user_rec(n_user, cluster, v, bias):
     imf_ratings = imf_pred[imf_items]
     imf_rec = dict(items=imf_items[:25], ratings=imf_ratings[:25])
 
-    hyb_pred = hybrid_rec(imf_pred, ub_pred, alpha=0.8)
+    hyb_pred = hybrid_rec(imf_pred, ub_pred, alpha=0.5)
     hyb_items = np.argsort(hyb_pred)[::-1]
     hyb_items_inv = np.zeros_like(hyb_items)
     hyb_items_inv[hyb_items] = np.arange(hyb_items.size)
     hyb_items = np.delete(hyb_items, hyb_items_inv[items_rated])
     hyb_ratings = hyb_pred[hyb_items]
-    hyb_rank_imf = relative_rank(imf_items, hyb_items)
-    hyb_rank_ub = relative_rank(ub_items, hyb_items)
+    hyb_rank_imf = relative_rank(hyb_items , imf_items)
+    hyb_rank_ub = relative_rank(hyb_items, ub_items)
     hyb_rec = dict(items=hyb_items[:25], ratings=hyb_ratings[:25], rank_imf=hyb_rank_imf, rank_ub=hyb_rank_ub)
 
     recommenders_results.update({'Hybrid recommender': hyb_rec})

@@ -8,10 +8,9 @@
 <body>
 <div id = "outer">
 <div class=page>
-    <h1 class="page_title">Select a user of cluster {{ session['n_cluster'] }}</h1>
+    <h1 class="page_title">Select a user in cluster {{ session['n_cluster'] }}</h1>
 
     <div class="metanav">
-        <h4>
             <form id='select_cluster' method='post' action='show_rec'>
                 <select name="n_user">
                     {% for user_num, user in enumerate(users) %}
@@ -19,10 +18,9 @@
                     {% endfor %}
                 </select>
                 <p>
-                    <input type='submit' value='Select this user'/>
+                    <input type='submit' class="btn btn-primary" value='Select this user'/>
                 </p>
             </form>
-        </h4>
     </div>
 </div>
 </div>

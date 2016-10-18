@@ -36,7 +36,7 @@ h2 {
     font-size: 0.8em;
     padding: 0.3em;
     margin: 1em;
-    background: #fafafa;
+    background: #d8dbfa;
     text-align: right;
 }
 
@@ -76,7 +76,9 @@ h2 {
 }
 
 .page_title{
-        margin: auto 0.5em
+        margin: auto 0.5em;
+        font-weight: bold;
+
 }
 
 /* centered columns styles */
@@ -89,4 +91,13 @@ h2 {
     /* reset the text-align */
     /* inline-block space fix */
     margin-right:-4px;
+}
+
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 20px solid #6e98cd;
+  border-bottom: 10px solid transparent;
 }

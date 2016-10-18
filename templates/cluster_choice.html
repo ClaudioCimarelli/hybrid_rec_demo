@@ -11,18 +11,15 @@
     <h1 class="page_title">Select a cluster number</h1>
 
     <div class="metanav">
-        <h4>
-            <form id='select_cluster' method='post' action='choose_user'>
-                <select name="n_cluster">
-                    {% for num in range(cluster_num) %}
-                        <option value="{{ num }}">{{num }}</option>
-                    {% endfor %}
-                </select>
-                <p>
-                    <input type='submit' value='Select this cluster'/>
-                </p>
+            <form id='select_cluster' class="form-inline" method='post' action='choose_user'>
+                    <select class="form-control" name="n_cluster">
+                        {% for num in range(cluster_num) %}
+                            <option value="{{ num }}">{{num }}</option>
+                        {% endfor %}
+                    </select>
+
+                <p><input type='submit' class="btn btn-primary" value='Select this cluster'/> </p>
             </form>
-        </h4>
     </div>
 </div>
 </div>

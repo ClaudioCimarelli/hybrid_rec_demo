@@ -39,6 +39,8 @@ def show_recommendation():
     results = user_rec(n_user, clusters[n_cluster], v_batch, bias)
     items_rated = np.nonzero(clusters[n_cluster][n_user, :])[0]
     ratings = clusters[n_cluster][n_user, items_rated]
+    items_rated[...] = np.argsort(ratings)[::-1]
+    ratings[...] = ratings[items_rated]
     user_ratings = {'items' : items_rated, 'ratings' : ratings }
 
     return render_template("show_rec.html", results = results, user_ratings= user_ratings)
