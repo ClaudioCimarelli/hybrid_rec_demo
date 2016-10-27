@@ -29,10 +29,15 @@ def user_update(u_i, v, bias, profile, epochs=150, alpha0=0.023, beta=0.05):
 
     return u_i
 
+
 def new_user_update(v, bias, profile, items_rated):
-    u_b = np.random.uniform(-0.05, 0.05, len(v[0]))
-    u_b[...] = user_update(u_b, v[items_rated, :], bias, profile)
-    imf_pred = np.dot(u_b, v.T) + bias
+    u_i = np.random.uniform(-0.05, 0.05, len(v[0]))
+    u_i[...] = user_update(u_i, v[items_rated, :], bias, profile)
+    return u_i
+
+
+def online_prediction(u_i, v, bias):
+    imf_pred = np.dot(u_i, v.T) + bias
     imf_pred = np.maximum(np.minimum(imf_pred, 5), 1)
     return imf_pred
 

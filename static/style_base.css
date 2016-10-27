@@ -29,7 +29,6 @@ h2 {
     margin: 2em auto;
     border: 5px solid #ccc;
     background: white;
-    display: inline-block;
 }
 
 .metanav {
@@ -84,6 +83,7 @@ h2 {
 /* centered columns styles */
 .row-centered {
     text-align:center;
+    width:100%;
 }
 .col-centered {
     display:inline-block;

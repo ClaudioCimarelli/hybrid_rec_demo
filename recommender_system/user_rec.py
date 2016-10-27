@@ -1,12 +1,13 @@
 import numpy as np
-from collections import OrderedDict
 from user_based_predictions import user_based_pred
-from online_updates import new_user_update
+from online_updates import new_user_update, online_prediction
 from hybrid_rec import hybrid_rec
+from data_info_model import user_data
 
 
-def user_rec(n_user, cluster, v, bias):
-    recommenders_results = OrderedDict([])
+def user_rec(n_user, cluster, v, u, bias):
+    results = {'recommenders_results':{},
+                            'data':{}}
 
     items_rated = np.nonzero(cluster[n_user, :])[0]
 
@@ -18,7 +19,8 @@ def user_rec(n_user, cluster, v, bias):
     ub_ratings = ub_pred[ub_items]
     ub_rec = dict(items=ub_items[:25], ratings=ub_ratings[:25])
 
-    imf_pred = new_user_update(v, bias, cluster[n_user, items_rated], items_rated)
+    new_user_vector = new_user_update(v, bias, cluster[n_user, items_rated], items_rated)
+    imf_pred = online_prediction(new_user_vector, v, bias)
     imf_items = np.argsort(imf_pred)[::-1]
     imf_items_inv = np.zeros_like(imf_items)
     imf_items_inv[imf_items] = np.arange(imf_items.size)
@@ -26,7 +28,7 @@ def user_rec(n_user, cluster, v, bias):
     imf_ratings = imf_pred[imf_items]
     imf_rec = dict(items=imf_items[:25], ratings=imf_ratings[:25])
 
-    hyb_pred = hybrid_rec(imf_pred, ub_pred, alpha=0.5)
+    hyb_pred = hybrid_rec(imf_pred, ub_pred, alpha=0.8)
     hyb_items = np.argsort(hyb_pred)[::-1]
     hyb_items_inv = np.zeros_like(hyb_items)
     hyb_items_inv[hyb_items] = np.arange(hyb_items.size)
@@ -36,11 +38,13 @@ def user_rec(n_user, cluster, v, bias):
     hyb_rank_ub = relative_rank(hyb_items, ub_items)
     hyb_rec = dict(items=hyb_items[:25], ratings=hyb_ratings[:25], rank_imf=hyb_rank_imf, rank_ub=hyb_rank_ub)
 
-    recommenders_results.update({'Hybrid recommender': hyb_rec})
-    recommenders_results.update({'Incremental Matrix Factorization' : imf_rec})
-    recommenders_results.update({'User Based Collaborative Filtering' : ub_rec})
+    results['recommenders_results'].update({'Hybrid recommender': hyb_rec})
+    results['recommenders_results'].update({'Incremental Matrix Factorization' : imf_rec})
+    results['recommenders_results'].update({'User Based Collaborative Filtering' : ub_rec})
 
-    return recommenders_results
+    results['data'] = user_data(n_user, cluster, u, new_user_vector)
+
+    return results
 
 
 def relative_rank(master, search):
@@ -55,12 +59,12 @@ def relative_rank(master, search):
 
     final_inds = sorti_s[sorti_inv]
 
-    final_inds_3 = (sorti_s - sorti)[sorti_inv] + np.arange(sorti.size)
-
-    # get indices in sorted version
-    tmpind = np.searchsorted(master, search, sorter=sorti)
-
-    # transform indices back to original array with inverse permutation
-    final_inds_2 = tmpind[sorti_inv]
+    # final_inds_3 = (sorti_s - sorti)[sorti_inv] + np.arange(sorti.size)
+    #
+    # # get indices in sorted version
+    # tmpind = np.searchsorted(master, search, sorter=sorti)
+    #
+    # # transform indices back to original array with inverse permutation
+    # final_inds_2 = tmpind[sorti_inv]
 
     return final_inds + 1

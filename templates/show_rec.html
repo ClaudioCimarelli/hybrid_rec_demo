@@ -22,11 +22,41 @@
     <div class=page>
         <h1 class="page_title">Recommendation process for user {{ session['n_user'] }} in cluster {{ session['n_cluster'] }}</h1>
         <div class="metanav">
-            <div class="container">
-                <div class = "row row-centered">
-                    <div id="user_ratings_table" class="col-xs-4 col-centered container">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
+            <div class="container row-centered">
+                <div class = "row">
+                    <div class = 'col-md-4'>
+                            <div id="ub_table" class="col-md-12 container col-centered">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <table class="table table-hover table-fixed data_table">
+                                    {% set name = 'User Based Collaborative Filtering'%}
+                                    {% set recommender = results[name] %}
+                                        <h4 >{{ name }}</h4>
+                                        <thead>
+                                        <tr class="">
+                                            <th class="col-xs-4" style="text-align: center">Rank</th>
+                                            <th class="col-xs-4" style="text-align: center">Item</th>
+                                            <th class="col-xs-4" style="text-align: center">Rating</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody >
+                                        {% for rank, item in enumerate(recommender['items']) %}
+                                            <tr class="">
+                                                <td class="col-xs-4" style="text-align: center"><b>{{ rank + 1 }}</b></td>
+                                                <td class="col-xs-4" style="text-align: center">{{ item }} </td>
+                                                <td class="col-xs-4" style="text-align: center"> {{ recommender['ratings'][rank] |round(1, 'common') }} </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = 'col-md-4'>
+                            <div id="user_ratings_table" class="col-md-10 container col-centered">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
                                 <table class="table table-hover table-fixed data_table">
                                 {% set name = 'Ratings given by user (with ID: ' + session['n_user']|string + ' ) '%}
                                     <h4 >{{ name }}</h4>
@@ -48,17 +78,165 @@
                                     </tbody>
                                 </table>
                             </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class = 'col-md-4'>
+                            <div id="ub_table" class="col-md-12 container col-centered">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <table class="table table-hover table-fixed data_table">
+                                    {% set name = 'User Based Collaborative Filtering'%}
+                                    {% set recommender = results[name] %}
+                                        <h4 >{{ name }}</h4>
+                                        <thead>
+                                        <tr class="">
+                                            <th class="col-xs-4" style="text-align: center">Rank</th>
+                                            <th class="col-xs-4" style="text-align: center">Item</th>
+                                            <th class="col-xs-4" style="text-align: center">Rating</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody >
+                                        {% for rank, item in enumerate(recommender['items']) %}
+                                            <tr class="">
+                                                <td class="col-xs-4" style="text-align: center"><b>{{ rank + 1 }}</b></td>
+                                                <td class="col-xs-4" style="text-align: center">{{ item }} </td>
+                                                <td class="col-xs-4" style="text-align: center"> {{ recommender['ratings'][rank] |round(1, 'common') }} </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="container">
-                <div class="row row-centered">
+            <div class="container row-centered">
+                <div class="row">
                     <div class="arrow-down col-centered"></div>
                 </div>
             </div>
-            <div class="container">
-                <div class = "row row-centered">
+            <div class="container row-centered">
+                {#<div class = "row">
+                        <div class = 'col-md-6 container col-centered'>
+                        <div class="row">
+                            <div id="ub_table" class="col-md-6 container">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <table class="table table-hover table-fixed data_table">
+                                    {% set name = 'User Based Collaborative Filtering'%}
+                                    {% set recommender = results[name] %}
+                                        <h4 >{{ name }}</h4>
+                                        <thead>
+                                        <tr class="">
+                                            <th class="col-xs-4" style="text-align: center">Rank</th>
+                                            <th class="col-xs-4" style="text-align: center">Item</th>
+                                            <th class="col-xs-4" style="text-align: center">Rating</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody >
+                                        {% for rank, item in enumerate(recommender['items']) %}
+                                            <tr class="">
+                                                <td class="col-xs-4" style="text-align: center"><b>{{ rank + 1 }}</b></td>
+                                                <td class="col-xs-4" style="text-align: center">{{ item }} </td>
+                                                <td class="col-xs-4" style="text-align: center"> {{ recommender['ratings'][rank] |round(1, 'common') }} </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                            <div id="imf_table" class="col-md-6 container">
+                                <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <table class="table table-hover table-fixed data_table">
+                                    {% set name = 'Incremental Matrix Factorization' %}
+                                    {% set recommender = results[name] %}
+                                        <h4 >{{ name }}</h4>
+                                        <thead>
+                                        <tr class="">
+                                            <th class="col-xs-4" style="text-align: center">Rank</th>
+                                            <th class="col-xs-4" style="text-align: center">Item</th>
+                                            <th class="col-xs-4" style="text-align: center">Rating</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody >
+                                        {% for rank, item in enumerate(recommender['items']) %}
+                                            <tr class="">
+                                                <td class="col-xs-4" style="text-align: center"><b>{{ rank + 1 }}</b></td>
+                                                <td class="col-xs-4" style="text-align: center">{{ item }} </td>
+                                                <td class="col-xs-4" style="text-align: center"> {{ recommender['ratings'][rank] |round(1, 'common') }} </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class = 'col-md-6 container col-centered'>
+                        <div class = 'row'>
+                            <div id="ub_table" class="col-md-6 container">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <table class="table table-hover table-fixed data_table">
+                                    {% set name = 'User Based Collaborative Filtering'%}
+                                    {% set recommender = results[name] %}
+                                        <h4 >{{ name }}</h4>
+                                        <thead>
+                                        <tr class="">
+                                            <th class="col-xs-4" style="text-align: center">Rank</th>
+                                            <th class="col-xs-4" style="text-align: center">Item</th>
+                                            <th class="col-xs-4" style="text-align: center">Rating</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody >
+                                        {% for rank, item in enumerate(recommender['items']) %}
+                                            <tr class="">
+                                                <td class="col-xs-4" style="text-align: center"><b>{{ rank + 1 }}</b></td>
+                                                <td class="col-xs-4" style="text-align: center">{{ item }} </td>
+                                                <td class="col-xs-4" style="text-align: center"> {{ recommender['ratings'][rank] |round(1, 'common') }} </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                            <div id="imf_table" class="col-md-6 container">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <table class="table table-hover table-fixed data_table">
+                                    {% set name = 'Incremental Matrix Factorization' %}
+                                    {% set recommender = results[name] %}
+                                        <h4 >{{ name }}</h4>
+                                        <thead>
+                                        <tr class="">
+                                            <th class="col-xs-4" style="text-align: center">Rank</th>
+                                            <th class="col-xs-4" style="text-align: center">Item</th>
+                                            <th class="col-xs-4" style="text-align: center">Rating</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody >
+                                        {% for rank, item in enumerate(recommender['items']) %}
+                                            <tr class="">
+                                                <td class="col-xs-4" style="text-align: center"><b>{{ rank + 1 }}</b></td>
+                                                <td class="col-xs-4" style="text-align: center">{{ item }} </td>
+                                                <td class="col-xs-4" style="text-align: center"> {{ recommender['ratings'][rank] |round(1, 'common') }} </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        </div>
+                </div>#}
+                <div class = "row">
 
                     <div id="ub_table" class="col-xs-4 col-centered container">
                         <div class="panel panel-default">
@@ -117,13 +295,13 @@
                     </div>
                 </div>
             </div>
-            <div class="container">
-                <div class="row row-centered">
+            <div class="container  row-centered">
+                <div class="row">
                     <div class="arrow-down col-centered"></div>
                 </div>
             </div>
-            <div class="container">
-                <div class = "row row-centered" >
+            <div class="container  row-centered">
+                <div class = "row" >
                     <div id="hyb_table" class="col-xs-5 col-centered container">
                         <div class="panel panel-default">
                             <div class="panel-heading">
