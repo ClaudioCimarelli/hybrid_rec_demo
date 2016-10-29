@@ -2,7 +2,8 @@ from util import non_zero_matrix
 import numpy as np
 import os
 
-def matrix_factorization(ratings, u, v, bias, epochs=200, alpha0=0.023, beta=0.045, suffix_name='batch'):
+
+def matrix_factorization(ratings, u, v, bias, epochs=200, alpha0=0.023, beta=0.045):
 
     nz_ratings = non_zero_matrix(ratings)
 
@@ -52,7 +53,7 @@ def train(ratings, N, M, K, suffix_name='batch'):
         v_b = np.random.uniform(-0.05, 0.05, (M, K))
         users = np.unique(np.nonzero(ratings)[0])
         items = np.unique(np.nonzero(ratings[users, :])[1])
-        u_b[users, :], v_b[items, :] = matrix_factorization(ratings[np.ix_(users, items)], u_b[users, :], v_b[items, :], bias, suffix_name=suffix_name)
+        u_b[users, :], v_b[items, :] = matrix_factorization(ratings[np.ix_(users, items)], u_b[users, :], v_b[items, :], bias)
         np.save(path + '/data/u_' + suffix_name, u_b)
         np.save(path + '/data/v_' + suffix_name, v_b)
 

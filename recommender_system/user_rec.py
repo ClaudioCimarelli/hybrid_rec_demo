@@ -5,7 +5,7 @@ from hybrid_rec import hybrid_rec
 from data_info_model import user_data
 
 
-def user_rec(n_user, cluster, v, u, bias):
+def user_rec(n_user, cluster, experts_matrix, v, u, bias):
     results = {'recommenders_results':{},
                             'data':{}}
 
@@ -19,8 +19,8 @@ def user_rec(n_user, cluster, v, u, bias):
     ub_ratings = ub_pred[ub_items]
     ub_rec = dict(items=ub_items[:25], ratings=ub_ratings[:25])
 
-    new_user_vector = new_user_update(v, bias, cluster[n_user, items_rated], items_rated)
-    imf_pred = online_prediction(new_user_vector, v, bias)
+    user_u = new_user_update(v, bias, cluster[n_user, items_rated], items_rated)
+    imf_pred = online_prediction(user_u, v, bias)
     imf_items = np.argsort(imf_pred)[::-1]
     imf_items_inv = np.zeros_like(imf_items)
     imf_items_inv[imf_items] = np.arange(imf_items.size)
@@ -42,7 +42,7 @@ def user_rec(n_user, cluster, v, u, bias):
     results['recommenders_results'].update({'Incremental Matrix Factorization' : imf_rec})
     results['recommenders_results'].update({'User Based Collaborative Filtering' : ub_rec})
 
-    results['data'] = user_data(n_user, cluster, u, new_user_vector)
+    results['data'] = user_data(n_user, cluster, experts_matrix, u, user_u)
 
     return results
 

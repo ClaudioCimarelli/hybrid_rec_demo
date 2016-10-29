@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session
-
-from data_info_model import user_data
+import numpy as np
+import os
 from recommender_system.batch_MF import train
 from recommender_system.create_clusters import build_clusters
 from recommender_system.load_data import load_data
@@ -38,7 +38,7 @@ def show_recommendation():
     n_cluster = int(session['n_cluster'])
     session['n_user'] = int(clusters_index[n_cluster][n_user])
     session['n_user_in_cluster'] = n_user
-    results = user_rec(n_user, clusters[n_cluster], v_batch, u_batch, bias)
+    results = user_rec(n_user, clusters[n_cluster], experts_matrix, v_batch, u_batch, bias)
     data = results['data']
     user_ratings = data['user_ratings']
     cluster_neighbours = data['cluster_neighbours']
@@ -60,6 +60,9 @@ if __name__ == '__main__':
     clusters, clusters_index = build_clusters(users_matrix, n_cluster=10)
     N = len(experts_matrix)
     M = len(experts_matrix[0])
-    K = 40
+    K = 10
     u_batch, v_batch, bias = train(experts_matrix, N, M, K, suffix_name='experts')
+    delta = np.dot(v_batch.T, v_batch)
+    path = os.path.dirname(__file__)
+    np.savetxt(path + '/recommender_system/data/delta12', delta, '%.12f')
     app.run(debug=True)

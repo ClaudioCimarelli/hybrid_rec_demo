@@ -25,26 +25,27 @@
             <div class="container row-centered">
                 <div class = "row">
                     <div class = 'col-md-4'>
-                            <div id="ub_table" class="col-md-12 container col-centered">
+                            <div id="cluster_table" class="col-md-12 container col-centered">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <table class="table table-hover table-fixed data_table">
-                                    {% set name = 'User Based Collaborative Filtering'%}
-                                    {% set recommender = results[name] %}
+                                    {% set name = 'Cluster neighbours Top 3 ratings'%}
                                         <h4 >{{ name }}</h4>
                                         <thead>
                                         <tr class="">
-                                            <th class="col-xs-4" style="text-align: center">Rank</th>
-                                            <th class="col-xs-4" style="text-align: center">Item</th>
-                                            <th class="col-xs-4" style="text-align: center">Rating</th>
+                                            <th class="col-xs-3" style="text-align: center">Neighbour</th>
+                                            <th class="col-xs-3" style="text-align: center">Top 1</th>
+                                            <th class="col-xs-3" style="text-align: center">Top 2</th>
+                                            <th class="col-xs-3" style="text-align: center">Top 3</th>
                                         </tr>
                                         </thead>
                                         <tbody >
-                                        {% for rank, item in enumerate(recommender['items']) %}
+                                        {% for rank, item in enumerate(cluster_neighbours) %}
                                             <tr class="">
-                                                <td class="col-xs-4" style="text-align: center"><b>{{ rank + 1 }}</b></td>
-                                                <td class="col-xs-4" style="text-align: center">{{ item }} </td>
-                                                <td class="col-xs-4" style="text-align: center"> {{ recommender['ratings'][rank] |round(1, 'common') }} </td>
+                                                <td class="col-xs-3" style="text-align: center"><b>{{ rank + 1 }}</b></td>
+                                                <td class="col-xs-3" style="text-align: center">{{ item[0] }} </td>
+                                                <td class="col-xs-3" style="text-align: center">{{ item[1] }} </td>
+                                                <td class="col-xs-3" style="text-align: center">{{ item[2] }} </td>
                                             </tr>
                                         {% endfor %}
                                         </tbody>
@@ -54,7 +55,7 @@
                         </div>
                     </div>
                     <div class = 'col-md-4'>
-                            <div id="user_ratings_table" class="col-md-10 container col-centered">
+                            <div id="user_ratings_table" class="col-md-9 container col-centered">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                 <table class="table table-hover table-fixed data_table">
@@ -86,22 +87,23 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <table class="table table-hover table-fixed data_table">
-                                    {% set name = 'User Based Collaborative Filtering'%}
-                                    {% set recommender = results[name] %}
+                                    {% set name = 'Experts neighbours Top 3 ratings'%}
                                         <h4 >{{ name }}</h4>
                                         <thead>
                                         <tr class="">
-                                            <th class="col-xs-4" style="text-align: center">Rank</th>
-                                            <th class="col-xs-4" style="text-align: center">Item</th>
-                                            <th class="col-xs-4" style="text-align: center">Rating</th>
+                                            <th class="col-xs-3" style="text-align: center">Neighbour</th>
+                                            <th class="col-xs-3" style="text-align: center">Top 1</th>
+                                            <th class="col-xs-3" style="text-align: center">Top 2</th>
+                                            <th class="col-xs-3" style="text-align: center">Top 3</th>
                                         </tr>
                                         </thead>
                                         <tbody >
-                                        {% for rank, item in enumerate(recommender['items']) %}
+                                        {% for rank, item in enumerate(experts_neighbours) %}
                                             <tr class="">
-                                                <td class="col-xs-4" style="text-align: center"><b>{{ rank + 1 }}</b></td>
-                                                <td class="col-xs-4" style="text-align: center">{{ item }} </td>
-                                                <td class="col-xs-4" style="text-align: center"> {{ recommender['ratings'][rank] |round(1, 'common') }} </td>
+                                                <td class="col-xs-3" style="text-align: center"><b>{{ rank + 1 }}</b></td>
+                                                <td class="col-xs-3" style="text-align: center">{{ item[0] }} </td>
+                                                <td class="col-xs-3" style="text-align: center">{{ item[1] }} </td>
+                                                <td class="col-xs-3" style="text-align: center">{{ item[2] }} </td>
                                             </tr>
                                         {% endfor %}
                                         </tbody>
@@ -114,131 +116,18 @@
             </div>
             <div class="container row-centered">
                 <div class="row">
-                    <div class="arrow-down col-centered"></div>
+                    <div class="col-md-6">
+                        <div class="arrow-down col-centered"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="arrow-down col-centered"></div>
+                    </div>
                 </div>
             </div>
             <div class="container row-centered">
-                {#<div class = "row">
-                        <div class = 'col-md-6 container col-centered'>
-                        <div class="row">
-                            <div id="ub_table" class="col-md-6 container">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <table class="table table-hover table-fixed data_table">
-                                    {% set name = 'User Based Collaborative Filtering'%}
-                                    {% set recommender = results[name] %}
-                                        <h4 >{{ name }}</h4>
-                                        <thead>
-                                        <tr class="">
-                                            <th class="col-xs-4" style="text-align: center">Rank</th>
-                                            <th class="col-xs-4" style="text-align: center">Item</th>
-                                            <th class="col-xs-4" style="text-align: center">Rating</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody >
-                                        {% for rank, item in enumerate(recommender['items']) %}
-                                            <tr class="">
-                                                <td class="col-xs-4" style="text-align: center"><b>{{ rank + 1 }}</b></td>
-                                                <td class="col-xs-4" style="text-align: center">{{ item }} </td>
-                                                <td class="col-xs-4" style="text-align: center"> {{ recommender['ratings'][rank] |round(1, 'common') }} </td>
-                                            </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                            <div id="imf_table" class="col-md-6 container">
-                                <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <table class="table table-hover table-fixed data_table">
-                                    {% set name = 'Incremental Matrix Factorization' %}
-                                    {% set recommender = results[name] %}
-                                        <h4 >{{ name }}</h4>
-                                        <thead>
-                                        <tr class="">
-                                            <th class="col-xs-4" style="text-align: center">Rank</th>
-                                            <th class="col-xs-4" style="text-align: center">Item</th>
-                                            <th class="col-xs-4" style="text-align: center">Rating</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody >
-                                        {% for rank, item in enumerate(recommender['items']) %}
-                                            <tr class="">
-                                                <td class="col-xs-4" style="text-align: center"><b>{{ rank + 1 }}</b></td>
-                                                <td class="col-xs-4" style="text-align: center">{{ item }} </td>
-                                                <td class="col-xs-4" style="text-align: center"> {{ recommender['ratings'][rank] |round(1, 'common') }} </td>
-                                            </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
-                        <div class = 'col-md-6 container col-centered'>
-                        <div class = 'row'>
-                            <div id="ub_table" class="col-md-6 container">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <table class="table table-hover table-fixed data_table">
-                                    {% set name = 'User Based Collaborative Filtering'%}
-                                    {% set recommender = results[name] %}
-                                        <h4 >{{ name }}</h4>
-                                        <thead>
-                                        <tr class="">
-                                            <th class="col-xs-4" style="text-align: center">Rank</th>
-                                            <th class="col-xs-4" style="text-align: center">Item</th>
-                                            <th class="col-xs-4" style="text-align: center">Rating</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody >
-                                        {% for rank, item in enumerate(recommender['items']) %}
-                                            <tr class="">
-                                                <td class="col-xs-4" style="text-align: center"><b>{{ rank + 1 }}</b></td>
-                                                <td class="col-xs-4" style="text-align: center">{{ item }} </td>
-                                                <td class="col-xs-4" style="text-align: center"> {{ recommender['ratings'][rank] |round(1, 'common') }} </td>
-                                            </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                            <div id="imf_table" class="col-md-6 container">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <table class="table table-hover table-fixed data_table">
-                                    {% set name = 'Incremental Matrix Factorization' %}
-                                    {% set recommender = results[name] %}
-                                        <h4 >{{ name }}</h4>
-                                        <thead>
-                                        <tr class="">
-                                            <th class="col-xs-4" style="text-align: center">Rank</th>
-                                            <th class="col-xs-4" style="text-align: center">Item</th>
-                                            <th class="col-xs-4" style="text-align: center">Rating</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody >
-                                        {% for rank, item in enumerate(recommender['items']) %}
-                                            <tr class="">
-                                                <td class="col-xs-4" style="text-align: center"><b>{{ rank + 1 }}</b></td>
-                                                <td class="col-xs-4" style="text-align: center">{{ item }} </td>
-                                                <td class="col-xs-4" style="text-align: center"> {{ recommender['ratings'][rank] |round(1, 'common') }} </td>
-                                            </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                        </div>
-                </div>#}
                 <div class = "row">
-
-                    <div id="ub_table" class="col-xs-4 col-centered container">
+                    <div class = 'col-md-6'>
+                        <div id="ub_table" class="col-md-8 col-centered container">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <table class="table table-hover table-fixed data_table">
@@ -265,8 +154,9 @@
                             </div>
                         </div>
                     </div>
-
-                    <div id="imf_table" class="col-xs-4 col-centered container">
+                    </div>
+                    <div class = 'col-md-6'>
+                        <div id="imf_table" class="col-md-8 col-centered container">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <table class="table table-hover table-fixed data_table">
@@ -292,6 +182,7 @@
                                 </table>
                             </div>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>
