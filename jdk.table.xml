@@ -1,0 +1,74 @@
+<application>
+  <component name="ProjectJdkTable">
+    <jdk version="2">
+      <name value="Python 3.5.2 (~/anaconda3/bin/python)" />
+      <type value="Python SDK" />
+      <version value="Python 3.5.2" />
+      <homePath value="$USER_HOME$/anaconda3/bin/python" />
+      <roots>
+        <classPath>
+          <root type="composite">
+            <root type="simple" url="file://$USER_HOME$/anaconda3/lib/python3.5" />
+            <root type="simple" url="file://$USER_HOME$/anaconda3/lib/python3.5/plat-linux" />
+            <root type="simple" url="file://$USER_HOME$/anaconda3/lib/python3.5/lib-dynload" />
+            <root type="simple" url="file://$USER_HOME$/anaconda3/lib/python3.5/site-packages" />
+            <root type="simple" url="file://$USER_HOME$/anaconda3/lib/python3.5/site-packages/Sphinx-1.4.1-py3.5.egg" />
+            <root type="simple" url="jar://$USER_HOME$/anaconda3/lib/python3.5/site-packages/setuptools-23.0.0-py3.5.egg!/" />
+            <root type="simple" url="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/1017712270" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/python-skeletons" />
+          </root>
+        </classPath>
+        <sourcePath>
+          <root type="composite" />
+        </sourcePath>
+      </roots>
+      <additional />
+    </jdk>
+    <jdk version="2">
+      <name value="Python 3.5.2 (~/anaconda3/envs/flask_demo/bin/python)" />
+      <type value="Python SDK" />
+      <version value="Python 3.5.2" />
+      <homePath value="$USER_HOME$/anaconda3/envs/flask_demo/bin/python" />
+      <roots>
+        <classPath>
+          <root type="composite">
+            <root type="simple" url="file://$USER_HOME$/anaconda3/envs/flask_demo/lib/python3.5" />
+            <root type="simple" url="file://$USER_HOME$/anaconda3/envs/flask_demo/lib/python3.5/plat-linux" />
+            <root type="simple" url="file://$USER_HOME$/anaconda3/envs/flask_demo/lib/python3.5/lib-dynload" />
+            <root type="simple" url="file://$USER_HOME$/anaconda3/envs/flask_demo/lib/python3.5/site-packages" />
+            <root type="simple" url="jar://$USER_HOME$/anaconda3/envs/flask_demo/lib/python3.5/site-packages/setuptools-27.2.0-py3.5.egg!/" />
+            <root type="simple" url="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/-950490683" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/python-skeletons" />
+          </root>
+        </classPath>
+        <sourcePath>
+          <root type="composite" />
+        </sourcePath>
+      </roots>
+      <additional />
+    </jdk>
+    <jdk version="2">
+      <name value="Python 3.5.2 (~/anaconda3/envs/flask/bin/python)" />
+      <type value="Python SDK" />
+      <version value="Python 3.5.2" />
+      <homePath value="$USER_HOME$/anaconda3/envs/flask/bin/python" />
+      <roots>
+        <classPath>
+          <root type="composite">
+            <root type="simple" url="file://$USER_HOME$/anaconda3/envs/flask/lib/python3.5" />
+            <root type="simple" url="file://$USER_HOME$/anaconda3/envs/flask/lib/python3.5/plat-linux" />
+            <root type="simple" url="file://$USER_HOME$/anaconda3/envs/flask/lib/python3.5/lib-dynload" />
+            <root type="simple" url="file://$USER_HOME$/anaconda3/envs/flask/lib/python3.5/site-packages" />
+            <root type="simple" url="jar://$USER_HOME$/anaconda3/envs/flask/lib/python3.5/site-packages/setuptools-27.2.0-py3.5.egg!/" />
+            <root type="simple" url="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/-224814497" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/python-skeletons" />
+          </root>
+        </classPath>
+        <sourcePath>
+          <root type="composite" />
+        </sourcePath>
+      </roots>
+      <additional ASSOCIATED_PROJECT_PATH="$USER_HOME$/git/hybrid_rec_demo" />
+    </jdk>
+  </component>
+</application>
