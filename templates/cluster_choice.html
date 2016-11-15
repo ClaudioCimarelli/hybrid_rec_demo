@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cluster choise</title>
+    <link rel=stylesheet type=text/css href='{{ url_for('static',filename='style_base.css')}}'>
+</head>
+<body>
+<div id = "outer">
+<div class=page style="display: inline-block">
+    <h1 class="page_title">Select a cluster number</h1>
+
+    <div class="metanav">
+            <form id='select_cluster' class="form-inline" method='post' action='choose_user'>
+                    <select class="form-control" name="n_cluster">
+                        {% for num in range(cluster_num) %}
+                            <option value="{{ num }}">{{num }}</option>
+                        {% endfor %}
+                    </select>
+
+                <p><input type='submit' class="btn btn-primary" value='Select this cluster'/> </p>
+            </form>
+    </div>
+</div>
+</div>
+</body>
+</html>

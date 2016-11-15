@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User choise</title>
+    <link rel=stylesheet type=text/css href='{{ url_for('static',filename='style_base.css')}}'>
+</head>
+<body>
+<div id = "outer">
+<div class=page style="display: inline-block">
+    <h1 class="page_title">Select a user in cluster {{ session['n_cluster'] }}</h1>
+
+    <div class="metanav">
+            <form id='select_cluster' method='post' action='show_rec'>
+                <select name="n_user">
+                    {% for user_num, user in enumerate(users) %}
+                        <option value="{{ user_num }}">{{ user }}</option>
+                    {% endfor %}
+                </select>
+                <p>
+                    <input type='submit' class="btn btn-primary" value='Select this user'/>
+                </p>
+            </form>
+    </div>
+</div>
+</div>
+</body>
+</html>
